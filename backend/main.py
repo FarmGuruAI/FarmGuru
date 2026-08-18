@@ -11,8 +11,18 @@ import google.generativeai as genai
 # Load environment variables (e.g., GEMINI_API_KEY)
 load_dotenv()
 
+from fastapi.middleware.cors import CORSMiddleware
+
 # Initialize FastAPI
 app = FastAPI(title="NutriGrow Hybrid AI API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY", "YOUR_API_KEY_HERE")
