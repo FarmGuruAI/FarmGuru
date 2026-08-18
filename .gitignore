@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Streamlit
+# Keep config.toml, so don't ignore .streamlit/ entirely if it only has config.toml, but if they add credentials, ignore secrets.toml
+.streamlit/secrets.toml
