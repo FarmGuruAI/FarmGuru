@@ -13,5 +13,23 @@ env.bak/
 venv.bak/
 
 # Streamlit
-# Keep config.toml, so don't ignore .streamlit/ entirely if it only has config.toml, but if they add credentials, ignore secrets.toml
 .streamlit/secrets.toml
+
+# Node.js / Frontend
+node_modules/
+dist/
+.cache/
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.log
