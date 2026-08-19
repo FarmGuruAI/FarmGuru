@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const SUGGESTIONS = [
+const INITIAL_SUGGESTIONS = [
   "What is the best fertilizer for wheat?",
   "How to treat yellowing tomato leaves?",
   "When is the best time to harvest corn?",
@@ -71,6 +71,10 @@ const ChatWidget = () => {
     }
   };
 
+  // Filter out suggestions that have already been sent by the user
+  const userMessages = messages.filter(m => m.role === 'user').map(m => m.text);
+  const availableSuggestions = INITIAL_SUGGESTIONS.filter(sug => !userMessages.includes(sug));
+
   return (
     <>
       {/* Floating Action Button */}
@@ -95,11 +99,11 @@ const ChatWidget = () => {
             style={{ height: '500px', zIndex: 50 }}
           >
             {/* Header */}
-            <div className="bg-soil-dark border-b border-soil-border p-4 flex justify-between items-center">
-              <h3 className="text-white font-semibold flex items-center gap-2">
+            <div className="bg-soil-bg border-b border-soil-border p-4 flex justify-between items-center">
+              <h3 className="text-soil-text font-semibold flex items-center gap-2">
                 <span className="text-xl">🤖</span> Ask FarmGuru AI
               </h3>
-              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setIsOpen(false)} className="text-soil-muted hover:text-soil-text">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
@@ -110,14 +114,14 @@ const ChatWidget = () => {
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 rounded-xl ${msg.role === 'user' ? 'bg-primary-600 text-white rounded-br-none' : 'bg-soil-border text-gray-200 rounded-bl-none'}`}>
+                  <div className={`max-w-[80%] p-3 rounded-xl ${msg.role === 'user' ? 'bg-primary-600 text-white rounded-br-none shadow-md' : 'bg-soil-bg border border-soil-border text-soil-text rounded-bl-none shadow-sm'}`}>
                     <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                   </div>
                 </div>
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-soil-border text-gray-200 p-3 rounded-xl rounded-bl-none">
+                  <div className="bg-soil-bg border border-soil-border text-soil-text p-3 rounded-xl rounded-bl-none shadow-sm">
                     <p className="text-sm animate-pulse">Thinking...</p>
                   </div>
                 </div>
@@ -126,15 +130,15 @@ const ChatWidget = () => {
             </div>
 
             {/* Suggestions */}
-            {messages.length === 1 && (
-              <div className="px-4 pb-2">
-                <p className="text-xs text-gray-400 mb-2">Tap a suggestion to ask:</p>
+            {!isLoading && availableSuggestions.length > 0 && (
+              <div className="px-4 pb-3 border-t border-soil-border pt-3 bg-soil-bg/50">
+                <p className="text-xs text-soil-muted mb-2 font-medium">Tap a suggestion to ask:</p>
                 <div className="flex flex-wrap gap-2">
-                  {SUGGESTIONS.map((sug, idx) => (
+                  {availableSuggestions.map((sug, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSend(sug)}
-                      className="text-xs bg-soil-dark border border-soil-border text-gray-300 hover:text-white hover:border-primary-500 rounded-full px-3 py-1 transition-colors text-left"
+                      className="text-xs bg-soil-card border border-soil-border text-soil-text hover:text-primary-600 hover:border-primary-500 rounded-full px-3 py-1.5 transition-colors text-left shadow-sm"
                     >
                       {sug}
                     </button>
@@ -146,20 +150,20 @@ const ChatWidget = () => {
             {/* Input Form */}
             <form 
               onSubmit={(e) => { e.preventDefault(); handleSend(input); }}
-              className="p-3 border-t border-soil-border bg-soil-dark flex gap-2"
+              className="p-3 border-t border-soil-border bg-soil-bg flex gap-2"
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your question..."
-                className="flex-1 bg-soil-card border border-soil-border rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-primary-500"
+                className="flex-1 bg-soil-card border border-soil-border rounded-xl px-4 py-2 text-sm text-soil-text focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30"
                 disabled={isLoading}
               />
               <button 
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="bg-primary-500 hover:bg-primary-600 text-white rounded-xl px-4 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-primary-500 hover:bg-primary-600 text-white rounded-xl px-4 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />

@@ -48,13 +48,13 @@ const generateMockResult = (nitrogen, phosphorus, potassium) => {
   };
 };
 
-export const analyzeSoil = async ({ nitrogen, phosphorus, potassium }) => {
+export const analyzeSoil = async ({ nitrogen, phosphorus, potassium, moisture }) => {
   try {
     const response = await apiClient.post('/analyze', {
       n: Number(nitrogen),
       p: Number(phosphorus),
       k: Number(potassium),
-      moisture: 45.0, // Default moisture if not collected from UI
+      moisture: Number(moisture) || 45.0, // Use UI value or default
     });
     
     // The backend streams: "ML_RESULTS|crop|score|damage|water___[LLM text]"
@@ -105,6 +105,7 @@ export const analyzeSoil = async ({ nitrogen, phosphorus, potassium }) => {
         nitrogen: { value: Number(nitrogen), status: Number(nitrogen) > 50 ? 'Sufficient' : 'Deficient', optimal: '40-80 mg/kg' },
         phosphorus: { value: Number(phosphorus), status: Number(phosphorus) > 30 ? 'Sufficient' : 'Deficient', optimal: '25-50 mg/kg' },
         potassium: { value: Number(potassium), status: Number(potassium) > 40 ? 'Sufficient' : 'Deficient', optimal: '30-60 mg/kg' },
+        moisture: { value: Number(moisture) || 45, status: (Number(moisture) || 45) > 30 ? 'Sufficient' : 'Deficient', optimal: '40-60 %' }
       },
       recommendations: [
         `Recommended Crop: ${crop}`,

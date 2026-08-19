@@ -61,7 +61,7 @@ const SoilResultCard = ({ result }) => {
             <div key={key} className="bg-soil-bg border border-soil-border rounded-xl p-4 flex justify-between items-center">
               <div>
                 <div className="text-soil-muted text-sm capitalize">{key}</div>
-                <div className="text-2xl font-bold text-soil-text">{data.value} <span className="text-sm font-normal text-soil-text0">mg/kg</span></div>
+                <div className="text-2xl font-bold text-soil-text">{data.value} <span className="text-sm font-normal text-soil-text0">{key === 'moisture' ? '%' : 'mg/kg'}</span></div>
               </div>
               <div className="text-right">
                 <div className={`text-xs px-2 py-1 rounded-full inline-block mb-1 ${data.status === 'Optimal' ? 'bg-green-500/20 text-green-400' : data.status === 'Low' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400'}`}>

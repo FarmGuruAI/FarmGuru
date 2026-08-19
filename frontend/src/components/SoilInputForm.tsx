@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Beaker, ArrowRight } from 'lucide-react';
 
 export default function SoilInputForm({ onSubmit, compact = false }) {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
   const [values, setValues] = useState({
-    nitrogen: '',
-    phosphorus: '',
-    potassium: ''
+    nitrogen: searchParams.get('nitrogen') || '',
+    phosphorus: searchParams.get('phosphorus') || '',
+    potassium: searchParams.get('potassium') || '',
+    moisture: searchParams.get('moisture') || ''
   });
   const navigate = useNavigate();
 
@@ -42,13 +46,13 @@ export default function SoilInputForm({ onSubmit, compact = false }) {
         </div>
         {!compact && (
           <p className="hidden md:block text-soil-muted text-sm">
-            Enter NPK values to get instant soil condition prediction
+            Enter soil metrics to get instant condition prediction
           </p>
         )}
       </div>
 
       <form onSubmit={handleSubmit} className="mt-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Nitrogen */}
           <div>
             <label className="block text-soil-muted text-sm font-medium mb-2">
@@ -109,6 +113,27 @@ export default function SoilInputForm({ onSubmit, compact = false }) {
                 className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 outline-none transition-all"
               />
               <span className="absolute right-4 text-soil-text0 text-sm">mg/kg</span>
+            </div>
+          </div>
+
+          {/* Moisture */}
+          <div>
+            <label className="block text-soil-muted text-sm font-medium mb-2">
+              Moisture
+            </label>
+            <div className="relative flex items-center">
+              <input
+                type="number"
+                name="moisture"
+                min="0"
+                max="100"
+                placeholder="45"
+                required
+                value={values.moisture}
+                onChange={handleChange}
+                className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 outline-none transition-all"
+              />
+              <span className="absolute right-4 text-soil-text0 text-sm">%</span>
             </div>
           </div>
         </div>
