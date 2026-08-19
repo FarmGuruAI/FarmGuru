@@ -12,29 +12,11 @@ const Analysis = () => {
   const handleAnalyze = async (formData) => {
     setAppState('loading');
     try {
-      // Mocking response for demo:
-      const response = {
-        condition: 'Good',
-        score: 85,
-        color: 'green',
-        timestamp: new Date().toLocaleString(),
-        nutrients: {
-          nitrogen: { value: formData.nitrogen || 45, status: 'Optimal', optimal: '40-60 mg/kg' },
-          phosphorus: { value: formData.phosphorus || 20, status: 'Low', optimal: '30-50 mg/kg' },
-          potassium: { value: formData.potassium || 180, status: 'Optimal', optimal: '150-250 mg/kg' }
-        },
-        recommendations: [
-          'Apply phosphorus-rich fertilizer to reach optimal levels.',
-          'Maintain current nitrogen application routine.',
-          'Soil moisture retention looks good.'
-        ]
-      };
+      // Call the actual backend via the api service
+      const response = await analyzeSoil(formData);
       
-      // Simulate API delay
-      setTimeout(() => {
-        setResultData(response);
-        setAppState('result');
-      }, 2000);
+      setResultData(response);
+      setAppState('result');
     } catch (error) {
       console.error(error);
       setAppState('input');

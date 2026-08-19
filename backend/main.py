@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Configure Gemini
-api_key = os.getenv("GEMINI_API_KEY", "YOUR_API_KEY_HERE")
+api_key = os.getenv("GEMINI_API_KEY", "")
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
@@ -120,6 +120,31 @@ async def analyze_soil(data: SensorData):
             yield f"Error generating LLM response: {str(e)}"
 
     return StreamingResponse(generate_response(), media_type="text/event-stream")
+
+class ChatRequest(BaseModel):
+    message: str
+
+@app.post("/api/chat")
+async def chat_with_ai(request: ChatRequest):
+    prompt = f"""
+    You are FarmGuru AI, an expert agricultural assistant. 
+    Answer the following question from a farmer in a simple, practical, and helpful way. Keep the answer concise.
+    If the question is not about farming, agriculture, crops, or weather, politely decline to answer.
+    
+    Question: {request.message}
+    """
+    
+    async def generate_chat():
+        try:
+            response = model.generate_content(prompt, stream=True)
+            for chunk in response:
+                await asyncio.sleep(0.01)
+                if chunk.text:
+                    yield chunk.text
+        except Exception as e:
+            yield f"Error: {str(e)}"
+            
+    return StreamingResponse(generate_chat(), media_type="text/event-stream")
 
 if __name__ == "__main__":
     import uvicorn

@@ -8,7 +8,7 @@ import Analysis from './pages/Analysis';
 import Dashboard from './pages/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
-
+import ChatWidget from './components/ChatWidget';
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [isFading, setIsFading] = useState(false);
@@ -63,6 +63,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
+          <ChatWidget />
           <Footer />
         </div>
       </Router>
