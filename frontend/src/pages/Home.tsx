@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Droplets, TestTubes, HeartPulse, Lightbulb } from 'lucide-react';
+import { BrainCircuit, TestTubes, HeartPulse, Lightbulb } from 'lucide-react';
 import Hero from '../components/Hero';
 import StatsSection from '../components/StatsSection';
 import SoilInputForm from '../components/SoilInputForm';
@@ -33,10 +33,10 @@ const Home = () => {
             <p className="text-muted-foreground">Comprehensive soil analysis tools</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <FeatureCard icon={Droplets} title="Moisture Analysis" description="Understand soil moisture conditions for better agricultural planning." index={0} />
+            <FeatureCard icon={BrainCircuit} title="Soil Condition Prediction" description="Understand predicted soil conditions from your NPK values." index={0} />
             <FeatureCard icon={TestTubes} title="NPK Analysis" description="Analyze essential soil nutrients required for healthy crop growth." index={1} />
             <FeatureCard icon={HeartPulse} title="Soil Health Score" description="Get a simplified soil health assessment from your analysis." index={2} />
-            <FeatureCard icon={Lightbulb} title="Smart Recommendations" description="Receive practical recommendations based on soil conditions." index={3} />
+            <FeatureCard icon={Lightbulb} title="Smart Recommendations" description="Receive practical recommendations based on predicted soil conditions." index={3} />
           </div>
         </div>
       </section>
@@ -51,7 +51,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             <div className="hidden md:block absolute top-5 left-[12%] right-[12%] border-t-2 border-dashed border-border z-0"></div>
             {[
-              { title: "Enter Values", desc: "Input Nitrogen, Phosphorus, Potassium and Moisture levels." },
+              { title: "Enter Values", desc: "Input Nitrogen, Phosphorus, and Potassium levels." },
               { title: "AI Analysis", desc: "Our AI model analyzes soil condition and nutrient balance." },
               { title: "Get Results", desc: "Receive detailed soil health report and recommendations." },
               { title: "Take Action", desc: "Improve soil health and maximize crop productivity." }
