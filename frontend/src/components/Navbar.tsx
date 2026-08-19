@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Sprout, Menu, X, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,7 +13,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 20) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -40,17 +41,17 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-soil-bg/90 backdrop-blur-xl border-b border-soil-border py-4'
-          : 'bg-transparent py-6'
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border py-3 shadow-sm'
+          : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Sprout className="w-8 h-8 text-primary-500 group-hover:text-primary-400 transition-colors" />
-            <span className="text-soil-text font-bold text-xl tracking-tight">
-              SoilSense <span className="text-primary-500">AI</span>
+            <Sprout className="w-8 h-8 text-primary group-hover:text-primary/80 transition-colors" />
+            <span className="text-foreground font-bold text-xl tracking-tight">
+              SoilSense <span className="text-primary">AI</span>
             </span>
           </Link>
 
@@ -62,8 +63,8 @@ const Navbar = () => {
                 to={link.path}
                 className={`text-sm font-medium transition-colors ${
                   location.pathname === link.path
-                    ? 'text-primary-400'
-                    : 'text-soil-muted hover:text-primary-400'
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-primary'
                 }`}
               >
                 {link.name}
@@ -71,51 +72,50 @@ const Navbar = () => {
             ))}
             
             {/* Theme Toggle */}
-            <button 
+            <Button 
+              variant="ghost" 
+              size="icon" 
               onClick={toggleTheme}
-              className="text-soil-muted hover:text-primary-400 transition-colors p-2 rounded-full"
+              className="rounded-full"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+            </Button>
           </div>
 
           {/* Get Started Button */}
           <div className="hidden md:block">
-            <Link
-              to="/analysis"
-              className="bg-primary-600 hover:bg-primary-500 text-soil-text rounded-full px-6 py-2 text-sm font-medium transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_20px_rgba(34,197,94,0.5)]"
-            >
-              Get Started
-            </Link>
+            <Button asChild className="rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300">
+              <Link to="/analysis">Get Started</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Toggle & Theme */}
-          <div className="md:hidden flex items-center space-x-4">
-            <button 
+          <div className="md:hidden flex items-center space-x-2">
+            <Button 
+              variant="ghost" 
+              size="icon" 
               onClick={toggleTheme}
-              className="text-soil-muted hover:text-primary-400 transition-colors"
+              className="rounded-full"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-soil-muted hover:text-soil-text focus:outline-none"
+              className="text-muted-foreground"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-soil-bg/95 backdrop-blur-xl border-b border-soil-border shadow-xl">
+        <div className="md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-border shadow-xl">
           <div className="px-4 pt-2 pb-6 space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -124,20 +124,18 @@ const Navbar = () => {
                 onClick={closeMobileMenu}
                 className={`block px-3 py-3 rounded-md text-base font-medium ${
                   location.pathname === link.path
-                    ? 'text-primary-400 bg-soil-card/50'
-                    : 'text-soil-muted hover:text-primary-400 hover:bg-soil-card/50'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-primary hover:bg-secondary/50'
                 }`}
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/analysis"
-              onClick={closeMobileMenu}
-              className="block w-full text-center mt-4 bg-primary-600 hover:bg-primary-500 text-soil-text rounded-full px-6 py-3 text-base font-medium transition-colors"
-            >
-              Get Started
-            </Link>
+            <Button asChild className="w-full rounded-full mt-4">
+              <Link to="/analysis" onClick={closeMobileMenu}>
+                Get Started
+              </Link>
+            </Button>
           </div>
         </div>
       )}
