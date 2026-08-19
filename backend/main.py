@@ -27,7 +27,7 @@ app.add_middleware(
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY", "")
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Global variables for our ML models
 crop_model = None
