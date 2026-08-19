@@ -26,9 +26,27 @@
   --color-earth-800: #654126;
   --color-earth-900: #553724;
 
-  --color-soil-dark: #0a1a0f;
-  --color-soil-card: #0f2a17;
-  --color-soil-border: #1a3a24;
+  --color-soil-bg: var(--bg-base);
+  --color-soil-card: var(--bg-card);
+  --color-soil-border: var(--border-color);
+  --color-soil-text: var(--text-primary);
+  --color-soil-muted: var(--text-muted);
+}
+
+:root {
+  --bg-base: #f9fafb;
+  --bg-card: #ffffff;
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+}
+
+:root[data-theme="dark"] {
+  --bg-base: #0a1a0f;
+  --bg-card: #0f2a17;
+  --border-color: #1a3a24;
+  --text-primary: #f9fafb;
+  --text-muted: #9ca3af;
 }
 
 html {
@@ -37,8 +55,9 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0a1a0f;
-  color: #f9fafb;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::-webkit-scrollbar {

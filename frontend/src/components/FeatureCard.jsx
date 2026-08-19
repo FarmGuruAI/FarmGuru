@@ -16,10 +16,10 @@ const FeatureCard = ({ icon: Icon, title, description, index = 0 }) => {
       </div>
 
       {/* Content */}
-      <h3 className="text-white font-semibold text-lg">
+      <h3 className="text-soil-text font-semibold text-lg">
         {title}
       </h3>
-      <p className="text-gray-400 text-sm mt-2 leading-relaxed">
+      <p className="text-soil-muted text-sm mt-2 leading-relaxed">
         {description}
       </p>
     </motion.div>

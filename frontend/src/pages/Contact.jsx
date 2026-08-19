@@ -21,13 +21,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-soil-dark pt-24 pb-16">
+    <div className="min-h-screen bg-soil-bg pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
           <motion.h1 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-soil-text mb-4"
           >
             Contact Us
           </motion.h1>
@@ -35,7 +35,7 @@ const Contact = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400"
+            className="text-soil-muted"
           >
             Get in touch with our team for support or inquiries
           </motion.p>
@@ -48,59 +48,59 @@ const Contact = () => {
             transition={{ delay: 0.2 }}
             className="bg-soil-card border border-soil-border rounded-2xl p-8"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">Send us a message</h2>
+            <h2 className="text-2xl font-bold text-soil-text mb-6">Send us a message</h2>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1.5">Name</label>
+                <label className="block text-sm font-medium text-soil-muted mb-1.5">Name</label>
                 <input 
                   type="text" 
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="bg-soil-dark border border-soil-border rounded-xl px-4 py-3 text-white w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
+                  className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
                   placeholder="John Doe"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1.5">Email</label>
+                <label className="block text-sm font-medium text-soil-muted mb-1.5">Email</label>
                 <input 
                   type="email" 
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="bg-soil-dark border border-soil-border rounded-xl px-4 py-3 text-white w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
+                  className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
                   placeholder="john@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1.5">Subject</label>
+                <label className="block text-sm font-medium text-soil-muted mb-1.5">Subject</label>
                 <input 
                   type="text" 
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="bg-soil-dark border border-soil-border rounded-xl px-4 py-3 text-white w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
+                  className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all"
                   placeholder="How can we help?"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-1.5">Message</label>
+                <label className="block text-sm font-medium text-soil-muted mb-1.5">Message</label>
                 <textarea 
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows="4"
-                  className="bg-soil-dark border border-soil-border rounded-xl px-4 py-3 text-white w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all resize-none"
+                  className="bg-soil-bg border border-soil-border rounded-xl px-4 py-3 text-soil-text w-full focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30 transition-all resize-none"
                   placeholder="Write your message here..."
                 ></textarea>
               </div>
               <button 
                 type="submit"
-                className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-3 rounded-xl w-full font-medium flex items-center justify-center gap-2 transition-colors mt-2"
+                className="bg-primary-600 hover:bg-primary-500 text-soil-text px-8 py-3 rounded-xl w-full font-medium flex items-center justify-center gap-2 transition-colors mt-2"
               >
                 <Send className="w-5 h-5" />
                 Send Message
@@ -119,9 +119,9 @@ const Contact = () => {
                 <Mail className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Email Us</h3>
-                <p className="text-gray-400 mb-2">Our friendly team is here to help.</p>
-                <a href="mailto:contact@soilsense.ai" className="text-primary-400 hover:text-primary-300 font-medium">contact@soilsense.ai</a>
+                <h3 className="text-lg font-semibold text-soil-text mb-1">Email Us</h3>
+                <p className="text-soil-muted mb-2">Our friendly team is here to help.</p>
+                <a href="mailto:harishvattikulla@gmail.com" className="text-primary-400 hover:text-primary-300 font-medium">harishvattikulla@gmail.com</a>
               </div>
             </div>
 
@@ -130,9 +130,9 @@ const Contact = () => {
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Call Us</h3>
-                <p className="text-gray-400 mb-2">Mon-Fri from 9am to 6pm IST.</p>
-                <a href="tel:+919876543210" className="text-primary-400 hover:text-primary-300 font-medium">+91 98765 43210</a>
+                <h3 className="text-lg font-semibold text-soil-text mb-1">Call Us</h3>
+                <p className="text-soil-muted mb-2">Mon-Fri from 9am to 6pm IST.</p>
+                <a href="tel:+919337223874" className="text-primary-400 hover:text-primary-300 font-medium">+91 93372 23874</a>
               </div>
             </div>
 
@@ -141,9 +141,13 @@ const Contact = () => {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Visit Us</h3>
-                <p className="text-gray-400 mb-2">Come say hello at our office HQ.</p>
-                <p className="text-primary-400 font-medium">Hyderabad, India</p>
+                <h3 className="text-lg font-semibold text-soil-text mb-1">Visit Us</h3>
+                <p className="text-soil-muted mb-2 text-sm">Centurion University of Technology and Management (CUTM)</p>
+                <p className="text-primary-400 font-medium text-sm leading-relaxed">
+                  Paralakhemundi campus, Village Alluri Nagar,<br />
+                  P.O. – R Sitapur, Via-Uppalada,<br />
+                  Paralakhemundi, Odisha – 761211, India
+                </p>
               </div>
             </div>
           </motion.div>

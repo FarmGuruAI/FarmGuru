@@ -57,10 +57,10 @@ const StatItem = ({ stat }) => {
   return (
     <div ref={ref} className="flex flex-col items-center text-center">
       <Icon className="w-8 h-8 text-primary-400 mb-4" />
-      <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+      <div className="text-3xl md:text-4xl font-bold text-soil-text mb-1">
         {count}{stat.suffix}
       </div>
-      <div className="text-gray-400 text-sm">{stat.label}</div>
+      <div className="text-soil-muted text-sm">{stat.label}</div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ export default function LoadingState() {
           transition={{ duration: 1.5, repeat: Infinity }}
           className="flex flex-col items-center mt-6"
         >
-          <div className="text-gray-300 text-lg flex items-center">
+          <div className="text-soil-muted text-lg flex items-center">
             Analyzing your soil
             <span className="flex ml-1">
               <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}>.</motion.span>
@@ -20,7 +20,7 @@ export default function LoadingState() {
               <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}>.</motion.span>
             </span>
           </div>
-          <div className="text-gray-500 text-sm mt-2">
+          <div className="text-soil-text0 text-sm mt-2">
             Our AI model is processing your NPK values
           </div>
         </motion.div>

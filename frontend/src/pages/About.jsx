@@ -4,15 +4,15 @@ import { Leaf, Cpu, LineChart } from 'lucide-react';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-soil-dark pt-24 pb-16">
+    <div className="min-h-screen bg-soil-bg pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 py-16">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About SoilSense AI</h1>
-          <p className="text-lg text-gray-400 leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-bold text-soil-text mb-6">About SoilSense AI</h1>
+          <p className="text-lg text-soil-muted leading-relaxed">
             We are dedicated to empowering farmers and agricultural professionals with cutting-edge artificial intelligence to understand their soil better, optimize crop yield, and ensure sustainable farming practices.
           </p>
         </motion.div>
@@ -24,21 +24,21 @@ const About = () => {
           className="bg-soil-card border border-soil-border rounded-2xl p-8 md:p-12 mb-20 flex flex-col md:flex-row items-center gap-8 md:gap-16"
         >
           <div className="w-full md:w-1/2">
-            <h2 className="text-3xl font-bold text-white mb-4 flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-soil-text mb-4 flex items-center gap-3">
               <Leaf className="text-primary-500 w-8 h-8" />
               Our Mission
             </h2>
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-soil-muted leading-relaxed">
               To democratize advanced soil analysis technology, making it accessible to every farmer. By combining traditional agricultural knowledge with modern machine learning, we strive to provide actionable insights that improve soil health globally.
             </p>
           </div>
-          <div className="w-full md:w-1/2 h-64 bg-soil-dark rounded-xl border border-soil-border flex items-center justify-center">
+          <div className="w-full md:w-1/2 h-64 bg-soil-bg rounded-xl border border-soil-border flex items-center justify-center">
             <Leaf className="w-24 h-24 text-primary-900/50" />
           </div>
         </motion.div>
 
         <div className="mb-20">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">How Our AI Works</h2>
+          <h2 className="text-3xl font-bold text-soil-text text-center mb-12">How Our AI Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { title: "1. Data Input", desc: "User inputs raw NPK (Nitrogen, Phosphorus, Potassium) values from standard soil tests.", icon: Leaf },
@@ -56,8 +56,8 @@ const About = () => {
                 <div className="bg-primary-900/30 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                   <step.icon className="w-7 h-7 text-primary-500" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-gray-400">{step.desc}</p>
+                <h3 className="text-xl font-bold text-soil-text mb-3">{step.title}</h3>
+                <p className="text-soil-muted">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -69,10 +69,10 @@ const About = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-2xl font-bold text-white mb-8">Technology Stack</h2>
+          <h2 className="text-2xl font-bold text-soil-text mb-8">Technology Stack</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {['React 18', 'TailwindCSS v4', 'Framer Motion', 'FastAPI', 'Python', 'Scikit-learn', 'Pandas'].map((tech, i) => (
-              <span key={i} className="bg-soil-card border border-soil-border rounded-full px-5 py-2.5 text-sm text-gray-300 font-medium hover:border-primary-500/50 transition-colors">
+              <span key={i} className="bg-soil-card border border-soil-border rounded-full px-5 py-2.5 text-sm text-soil-muted font-medium hover:border-primary-500/50 transition-colors">
                 {tech}
               </span>
             ))}

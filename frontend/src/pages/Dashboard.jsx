@@ -28,11 +28,11 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-soil-dark pt-24 pb-16">
+    <div className="min-h-screen bg-soil-bg pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Dashboard</h1>
-          <p className="text-gray-400">Track your soil analysis history</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-soil-text mb-2">Dashboard</h1>
+          <p className="text-soil-muted">Track your soil analysis history</p>
         </div>
 
         {/* Overview Cards */}
@@ -42,8 +42,8 @@ const Dashboard = () => {
               <FlaskConical className="w-8 h-8" />
             </div>
             <div>
-              <div className="text-gray-400 text-sm">Total Analyses</div>
-              <div className="text-3xl font-bold text-white">24</div>
+              <div className="text-soil-muted text-sm">Total Analyses</div>
+              <div className="text-3xl font-bold text-soil-text">24</div>
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-soil-card border border-soil-border rounded-2xl p-6 flex items-center gap-4">
@@ -51,8 +51,8 @@ const Dashboard = () => {
               <HeartPulse className="w-8 h-8" />
             </div>
             <div>
-              <div className="text-gray-400 text-sm">Average Health</div>
-              <div className="text-3xl font-bold text-white">72%</div>
+              <div className="text-soil-muted text-sm">Average Health</div>
+              <div className="text-3xl font-bold text-soil-text">72%</div>
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-soil-card border border-soil-border rounded-2xl p-6 flex items-center gap-4">
@@ -60,8 +60,8 @@ const Dashboard = () => {
               <Clock className="w-8 h-8" />
             </div>
             <div>
-              <div className="text-gray-400 text-sm">Last Analysis</div>
-              <div className="text-3xl font-bold text-white">Today</div>
+              <div className="text-soil-muted text-sm">Last Analysis</div>
+              <div className="text-3xl font-bold text-soil-text">Today</div>
             </div>
           </motion.div>
         </div>
@@ -69,7 +69,7 @@ const Dashboard = () => {
         {/* Charts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-soil-card border border-soil-border rounded-2xl p-6 h-96 flex flex-col">
-            <h2 className="text-xl font-bold text-white mb-6">Analysis Trend</h2>
+            <h2 className="text-xl font-bold text-soil-text mb-6">Analysis Trend</h2>
             <div className="flex-1 min-h-0">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trendData}>
@@ -84,7 +84,7 @@ const Dashboard = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-soil-card border border-soil-border rounded-2xl p-6 h-96 flex flex-col">
-            <h2 className="text-xl font-bold text-white mb-6">Average NPK Levels</h2>
+            <h2 className="text-xl font-bold text-soil-text mb-6">Average NPK Levels</h2>
             <div className="flex-1 min-h-0">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={npkAvgData}>
@@ -101,11 +101,11 @@ const Dashboard = () => {
 
         {/* History Table */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bg-soil-card border border-soil-border rounded-2xl p-6 overflow-hidden mt-8">
-          <h2 className="text-xl font-bold text-white mb-6">Recent Analyses</h2>
+          <h2 className="text-xl font-bold text-soil-text mb-6">Recent Analyses</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-soil-border text-gray-400 text-sm">
+                <tr className="border-b border-soil-border text-soil-muted text-sm">
                   <th className="py-4 px-4 font-medium">Date</th>
                   <th className="py-4 px-4 font-medium">N (mg/kg)</th>
                   <th className="py-4 px-4 font-medium">P (mg/kg)</th>
@@ -116,7 +116,7 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {recentHistory.map((row, i) => (
-                  <tr key={row.id} className={`${i % 2 === 0 ? 'bg-soil-dark/50' : ''} text-white`}>
+                  <tr key={row.id} className={`${i % 2 === 0 ? 'bg-soil-bg/50' : ''} text-soil-text`}>
                     <td className="py-4 px-4">{row.date}</td>
                     <td className="py-4 px-4 text-green-400">{row.n}</td>
                     <td className="py-4 px-4 text-blue-400">{row.p}</td>

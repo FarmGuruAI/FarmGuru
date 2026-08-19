@@ -29,7 +29,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-soil-dark overflow-hidden">
+    <section className="relative min-h-screen flex items-center bg-soil-bg overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0"
@@ -62,7 +62,7 @@ const Hero = () => {
 
           {/* Heading */}
           <motion.h1 variants={itemVariants} className="flex flex-col gap-2">
-            <span className="text-white font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight">
+            <span className="text-soil-text font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight">
               Analyze Your Soil.
             </span>
             <span className="bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight pb-2">
@@ -71,7 +71,7 @@ const Hero = () => {
           </motion.h1>
 
           {/* Subtitle */}
-          <motion.p variants={itemVariants} className="text-gray-300 text-lg max-w-lg mt-6">
+          <motion.p variants={itemVariants} className="text-soil-muted text-lg max-w-lg mt-6">
             AI-powered soil analysis to understand nutrient conditions and make smarter agricultural decisions.
           </motion.p>
 
@@ -79,7 +79,7 @@ const Hero = () => {
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mt-8">
             <Link 
               to="/analysis"
-              className="inline-flex justify-center items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-8 py-3.5 rounded-xl font-semibold transition-colors"
+              className="inline-flex justify-center items-center gap-2 bg-primary-600 hover:bg-primary-500 text-soil-text px-8 py-3.5 rounded-xl font-semibold transition-colors"
             >
               Start Soil Analysis
               <ArrowRight className="w-5 h-5" />
@@ -94,15 +94,15 @@ const Hero = () => {
 
           {/* Feature Badges */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row flex-wrap gap-6 mt-12">
-            <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
+            <div className="flex items-center gap-2 text-sm text-soil-muted font-medium">
               <BrainCircuit className="w-5 h-5 text-primary-500" />
               <span>AI Powered Predictions</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
+            <div className="flex items-center gap-2 text-sm text-soil-muted font-medium">
               <TestTubes className="w-5 h-5 text-primary-500" />
               <span>NPK & Moisture Analysis</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-400 font-medium">
+            <div className="flex items-center gap-2 text-sm text-soil-muted font-medium">
               <Lightbulb className="w-5 h-5 text-primary-500" />
               <span>Smart Recommendations</span>
             </div>

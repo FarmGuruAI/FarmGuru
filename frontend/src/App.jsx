@@ -43,7 +43,7 @@ function App() {
             </video>
             <button 
               onClick={() => setShowIntro(false)}
-              className="absolute bottom-10 right-10 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white px-6 py-2 rounded-full transition-all duration-300 z-50 cursor-pointer"
+              className="absolute bottom-10 right-10 bg-white/20 hover:bg-white/40 backdrop-blur-md text-soil-text px-6 py-2 rounded-full transition-all duration-300 z-50 cursor-pointer"
             >
               Skip Intro
             </button>
@@ -52,7 +52,7 @@ function App() {
       </AnimatePresence>
 
       <Router>
-        <div className="min-h-screen bg-soil-dark text-gray-50">
+        <div className="min-h-screen bg-soil-bg text-soil-text">
           <Navbar />
           <main>
             <Routes>
