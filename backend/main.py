@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from supabase import create_client, Client
 import google.generativeai as genai
 
 # Load environment variables (e.g., GEMINI_API_KEY)
@@ -28,6 +29,13 @@ app.add_middleware(
 api_key = os.getenv("GEMINI_API_KEY", "")
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.5-flash')
+
+supabase_url = os.getenv("SUPABASE_URL", "")
+supabase_key = os.getenv("SUPABASE_KEY", "")
+db: Client = None
+if supabase_url and supabase_key:
+    db = create_client(supabase_url, supabase_key)
+
 
 # Global variables for our ML models
 crop_model = None
@@ -81,6 +89,22 @@ async def analyze_soil(data: SensorData):
         soil_health = analytics[0]
         damage_risk = analytics[1]
         water_needed = analytics[2]
+
+        if db:
+            try:
+                db.table("soil_analyses").insert({
+                    "n": data.n,
+                    "p": data.p,
+                    "k": data.k,
+                    "moisture": data.moisture,
+                    "predicted_crop": predicted_crop,
+                    "soil_health": soil_health,
+                    "damage_risk": damage_risk,
+                    "water_needed": water_needed
+                }).execute()
+            except Exception as db_e:
+                print(f"Supabase Insert Error (create the table if missing): {db_e}")
+
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"ML Prediction failed: {e}")
@@ -120,6 +144,45 @@ async def analyze_soil(data: SensorData):
             yield f"Error generating LLM response: {str(e)}"
 
     return StreamingResponse(generate_response(), media_type="text/event-stream")
+
+
+@app.get("/api/history")
+async def get_history():
+    if not db: return []
+    try:
+        response = db.table("soil_analyses").select("*").order("created_at", desc=True).limit(50).execute()
+        mapped = []
+        for row in response.data:
+            sh = row.get("soil_health", 0)
+            condition = "Good" if sh > 70 else "Moderate" if sh > 40 else "Poor"
+            mapped.append({
+                "id": row.get("id"),
+                "nitrogen": row.get("n"),
+                "phosphorus": row.get("p"),
+                "potassium": row.get("k"),
+                "moisture": row.get("moisture"),
+                "condition": condition,
+                "score": round(sh),
+                "date": row.get("created_at", "").split("T")[0] if row.get("created_at") else ""
+            })
+        return mapped
+    except Exception as e:
+        print(f"Failed to fetch history: {e}")
+        return []
+
+@app.get("/api/stats")
+async def get_stats():
+    if not db: return {"totalAnalyses": 0, "averageHealth": 0}
+    try:
+        response = db.table("soil_analyses").select("soil_health").execute()
+        data = response.data
+        if not data: return {"totalAnalyses": 0, "averageHealth": 0}
+        total = len(data)
+        avg_health = sum(d["soil_health"] for d in data) / total
+        return {"totalAnalyses": total, "averageHealth": round(avg_health, 1)}
+    except Exception as e:
+        print(f"Failed to fetch stats: {e}")
+        return {"totalAnalyses": 0, "averageHealth": 0}
 
 class ChatRequest(BaseModel):
     message: str
