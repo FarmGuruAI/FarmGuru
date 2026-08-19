@@ -11,7 +11,7 @@ const INITIAL_SUGGESTIONS = [
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'ai', text: "Hello! I am FarmGuru AI. Ask me any farming questions or click a suggestion below." }
+    { role: 'ai', text: "Hello! I am FarmGuru AI 🌱 Ask me any farming questions or tap a suggestion below." }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,6 @@ const ChatWidget = () => {
 
   const handleSend = async (text) => {
     if (!text.trim()) return;
-
     const userMessage = { role: 'user', text };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
@@ -40,23 +39,18 @@ const ChatWidget = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }),
       });
-
       if (!response.ok) throw new Error('Network response was not ok');
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let aiText = '';
-
-      // Add an empty AI message to stream into
       setMessages((prev) => [...prev, { role: 'ai', text: '' }]);
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
         const chunk = decoder.decode(value, { stream: true });
         aiText += chunk;
-        
         setMessages((prev) => {
           const newMessages = [...prev];
           newMessages[newMessages.length - 1].text = aiText;
@@ -71,16 +65,15 @@ const ChatWidget = () => {
     }
   };
 
-  // Filter out suggestions that have already been sent by the user
   const userMessages = messages.filter(m => m.role === 'user').map(m => m.text);
   const availableSuggestions = INITIAL_SUGGESTIONS.filter(sug => !userMessages.includes(sug));
 
   return (
     <>
-      {/* Floating Action Button */}
+      {/* FAB Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 bg-primary-500 hover:bg-primary-600 text-white p-4 rounded-full shadow-lg transition-transform ${isOpen ? 'scale-0' : 'scale-100'}`}
+        className={`fixed bottom-6 right-6 bg-primary hover:bg-primary/90 text-white p-4 rounded-full shadow-xl shadow-primary/30 transition-all duration-300 ${isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
         style={{ zIndex: 50 }}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,34 +88,72 @@ const ChatWidget = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 w-80 md:w-96 bg-soil-card border border-soil-border rounded-2xl shadow-2xl overflow-hidden flex flex-col"
-            style={{ height: '500px', zIndex: 50 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="fixed bottom-6 right-6 w-80 md:w-96 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+            style={{
+              height: '500px',
+              zIndex: 50,
+              backgroundColor: 'var(--card)',
+              border: '1px solid var(--border)',
+              boxShadow: '0 25px 50px rgba(34,197,94,0.15)'
+            }}
           >
             {/* Header */}
-            <div className="bg-soil-bg border-b border-soil-border p-4 flex justify-between items-center">
-              <h3 className="text-soil-text font-semibold flex items-center gap-2">
-                <span className="text-xl">🤖</span> Ask FarmGuru AI
+            <div style={{
+              background: 'linear-gradient(135deg, #16a34a 0%, #2563eb 100%)',
+              padding: '16px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexShrink: 0
+            }}>
+              <h3 style={{ color: 'var(--foreground)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', margin: 0, fontSize: '15px' }}>
+                <span style={{ fontSize: '20px' }}>🌱</span> FarmGuru AI Assistant
               </h3>
-              <button onClick={() => setIsOpen(false)} className="text-soil-muted hover:text-soil-text">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{ color: 'rgba(255,255,255,0.8)', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '4px' }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" style={{ width: '18px', height: '18px' }} viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
             </div>
 
-            {/* Chat History */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Messages */}
+            <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', backgroundColor: 'var(--background)' }}>
               {messages.map((msg, idx) => (
-                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 rounded-xl ${msg.role === 'user' ? 'bg-primary-600 text-white rounded-br-none shadow-md' : 'bg-soil-bg border border-soil-border text-soil-text rounded-bl-none shadow-sm'}`}>
-                    <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+                <div key={idx} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                  <div style={{
+                    maxWidth: '80%',
+                    padding: '10px 14px',
+                    borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                    fontSize: '13px',
+                    lineHeight: '1.6',
+                    whiteSpace: 'pre-wrap',
+                    background: msg.role === 'user'
+                      ? 'linear-gradient(135deg, #16a34a, #22c55e)'
+                      : 'var(--card)',
+                    color: msg.role === 'user' ? '#fff' : 'var(--foreground)',
+                    border: msg.role === 'user' ? 'none' : '1px solid var(--border)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+                  }}>
+                    {msg.text}
                   </div>
                 </div>
               ))}
               {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-soil-bg border border-soil-border text-soil-text p-3 rounded-xl rounded-bl-none shadow-sm">
-                    <p className="text-sm animate-pulse">Thinking...</p>
+                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                  <div style={{
+                    padding: '10px 16px',
+                    borderRadius: '18px 18px 18px 4px',
+                    background: 'var(--card)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--muted-foreground)',
+                    fontSize: '13px',
+                    animation: 'pulse 1.5s infinite'
+                  }}>
+                    Thinking...
                   </div>
                 </div>
               )}
@@ -131,14 +162,39 @@ const ChatWidget = () => {
 
             {/* Suggestions */}
             {!isLoading && availableSuggestions.length > 0 && (
-              <div className="px-4 pb-3 border-t border-soil-border pt-3 bg-soil-bg/50">
-                <p className="text-xs text-soil-muted mb-2 font-medium">Tap a suggestion to ask:</p>
-                <div className="flex flex-wrap gap-2">
+              <div style={{
+                padding: '10px 14px',
+                borderTop: '1px solid var(--border)',
+                backgroundColor: 'var(--muted)',
+                flexShrink: 0
+              }}>
+                <p style={{ fontSize: '11px', color: 'var(--muted-foreground)', marginBottom: '8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Quick Questions
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {availableSuggestions.map((sug, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSend(sug)}
-                      className="text-xs bg-soil-card border border-soil-border text-soil-text hover:text-primary-600 hover:border-primary-500 rounded-full px-3 py-1.5 transition-colors text-left shadow-sm"
+                      style={{
+                        fontSize: '11px',
+                        padding: '5px 12px',
+                        borderRadius: '20px',
+                        border: '1px solid var(--primary)',
+                        background: 'transparent',
+                        color: 'var(--primary)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        fontWeight: 500
+                      }}
+                      onMouseOver={e => {
+                        e.currentTarget.style.background = 'var(--primary)';
+                        e.currentTarget.style.color = '#fff';
+                      }}
+                      onMouseOut={e => {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.color = 'var(--primary)';
+                      }}
                     >
                       {sug}
                     </button>
@@ -147,25 +203,56 @@ const ChatWidget = () => {
               </div>
             )}
 
-            {/* Input Form */}
-            <form 
+            {/* Input */}
+            <form
               onSubmit={(e) => { e.preventDefault(); handleSend(input); }}
-              className="p-3 border-t border-soil-border bg-soil-bg flex gap-2"
+              style={{
+                padding: '12px',
+                borderTop: '1px solid var(--border)',
+                backgroundColor: 'var(--card)',
+                display: 'flex',
+                gap: '8px',
+                flexShrink: 0
+              }}
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your question..."
-                className="flex-1 bg-soil-card border border-soil-border rounded-xl px-4 py-2 text-sm text-soil-text focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30"
+                placeholder="Ask about farming, crops, soil..."
                 disabled={isLoading}
+                style={{
+                  flex: 1,
+                  padding: '10px 16px',
+                  borderRadius: '20px',
+                  border: '1px solid var(--border)',
+                  backgroundColor: 'var(--background)',
+                  color: 'var(--foreground)',
+                  fontSize: '13px',
+                  outline: 'none'
+                }}
+                onFocus={e => e.target.style.borderColor = 'var(--primary)'}
+                onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />
-              <button 
+              <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="bg-primary-500 hover:bg-primary-600 text-white rounded-xl px-4 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition-colors"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #16a34a, #2563eb)',
+                  border: 'none',
+                  color: 'var(--foreground)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  opacity: isLoading || !input.trim() ? 0.5 : 1
+                }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" style={{ width: '16px', height: '16px', transform: 'rotate(90deg)' }} viewBox="0 0 20 20" fill="currentColor">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
               </button>

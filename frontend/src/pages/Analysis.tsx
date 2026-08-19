@@ -29,11 +29,11 @@ const Analysis = () => {
   };
 
   return (
-    <div className="min-h-screen bg-soil-bg pt-24 pb-16">
+    <div className="min-h-screen bg-background pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-soil-text mb-4">Soil Analysis</h1>
-          <p className="text-soil-muted">Enter your soil metrics for AI-powered health assessment</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Soil Analysis</h1>
+          <p className="text-muted-foreground">Enter your soil metrics for AI-powered health assessment</p>
         </div>
 
         <AnimatePresence mode="wait">
@@ -44,7 +44,7 @@ const Analysis = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
             >
-              <div className="bg-soil-card border border-soil-border rounded-2xl p-6 md:p-8">
+              <div className="bg-card border border-border rounded-2xl p-6 md:p-8">
                 <SoilInputForm onSubmit={handleAnalyze} />
               </div>
             </motion.div>
@@ -60,9 +60,9 @@ const Analysis = () => {
             >
               {/* Fallback inline loading state in case LoadingState is not fully implemented */}
               <div className="text-center">
-                <div className="w-16 h-16 border-4 border-soil-border border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
-                <h2 className="text-xl text-soil-text font-semibold">Analyzing Soil Data...</h2>
-                <p className="text-soil-muted mt-2">Applying AI models to generate insights</p>
+                <div className="w-16 h-16 border-4 border-border border-t-primary rounded-full animate-spin mx-auto mb-4"></div>
+                <h2 className="text-xl text-foreground font-semibold">Analyzing Soil Data...</h2>
+                <p className="text-muted-foreground mt-2">Applying AI models to generate insights</p>
               </div>
             </motion.div>
           )}
@@ -78,7 +78,7 @@ const Analysis = () => {
               <div className="mt-8 flex justify-center">
                 <button 
                   onClick={handleReset}
-                  className="bg-soil-card hover:bg-soil-border border border-soil-border text-soil-text px-8 py-3 rounded-xl transition-colors font-medium"
+                  className="bg-card hover:bg-secondary border border-border text-foreground px-8 py-3 rounded-xl transition-colors font-medium"
                 >
                   Start New Analysis
                 </button>
