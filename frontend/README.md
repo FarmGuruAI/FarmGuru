@@ -1,4 +1,4 @@
-# SoilSense AI — Frontend
+# FarmGuru — Frontend
 
 A premium AI-powered Soil Quality Analysis web application built with React.
 

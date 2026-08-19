@@ -9,7 +9,7 @@ slide1 = prs.slides.add_slide(title_slide_layout)
 title = slide1.shapes.title
 subtitle = slide1.placeholders[1]
 
-title.text = "FarmGuru: SoilSense AI"
+title.text = "FarmGuru: ML Powered Soil Analysis"
 subtitle.text = "AI-Powered Soil Quality Analysis\nTechnologies Used:\nFrontend: React, Vite, Tailwind CSS, Framer Motion\nBackend: Python, FastAPI, Scikit-learn, Google Gemini AI"
 
 # Slide 2: Problem & Solution

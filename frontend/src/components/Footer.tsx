@@ -12,7 +12,7 @@ const Footer = () => {
             <Link to="/" className="flex items-center gap-2 group">
               <Sprout className="w-8 h-8 text-primary group-hover:text-primary/80 transition-colors" />
               <span className="text-foreground font-bold text-xl tracking-tight">
-                SoilSense <span className="text-primary">AI</span>
+                Farm<span className="text-primary">Guru</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -77,7 +77,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-center md:text-left text-muted-foreground text-sm">
-            © 2026 SoilSense AI. All rights reserved.
+            © 2026 FarmGuru. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>

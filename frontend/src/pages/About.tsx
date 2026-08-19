@@ -11,7 +11,7 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-soil-text mb-6">About SoilSense AI</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-soil-text mb-6">About FarmGuru</h1>
           <p className="text-lg text-soil-muted leading-relaxed">
             We are dedicated to empowering farmers and agricultural professionals with cutting-edge artificial intelligence to understand their soil better, optimize crop yield, and ensure sustainable farming practices.
           </p>
