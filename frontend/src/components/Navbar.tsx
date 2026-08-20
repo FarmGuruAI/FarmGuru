@@ -51,7 +51,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2 group">
             <Sprout className="w-8 h-8 text-primary group-hover:text-primary/80 transition-colors" />
             <span className="text-foreground font-bold text-xl tracking-tight">
-              Farm<span className="text-primary">Guru</span>
+              Farm <span className="text-primary">Guru</span>
             </span>
           </Link>
 
