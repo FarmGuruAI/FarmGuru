@@ -190,9 +190,10 @@ class ChatRequest(BaseModel):
 @app.post("/api/chat")
 async def chat_with_ai(request: ChatRequest):
     prompt = f"""
-    You are FarmGuru AI, an expert agricultural assistant. 
+    You are FarmGuru AI, an expert agricultural assistant.
+    You were created by the founders of FarmGuru: Harish, Himagiri, Jayanth, and Hemanth. If anyone asks who created you, who made you, or who the founders are, proudly state their names.
     Answer the following question from a farmer in a simple, practical, and helpful way. Keep the answer concise.
-    If the question is not about farming, agriculture, crops, or weather, politely decline to answer.
+    If the question is not about farming, agriculture, crops, weather, or your founders, politely decline to answer.
     
     Question: {request.message}
     """
